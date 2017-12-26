@@ -11,8 +11,9 @@ const Qrcode = require("qrcode");
 function logIpc(msgType) {
     ipcRenderer.on(msgType, (...args) => {
         console.log(`IPC Message: ${msgType}, Args:`);
-        for (let i = 0; i < args.length; i++)
+        for (let i = 0; i < args.length; i++) {
             console.log(args[i]);
+        }
     });
 }
 
@@ -194,7 +195,7 @@ function showAddrDetail(addr) {
             ipcRenderer.send("rename-wallet", addr, nameNode.value);
         });
         dialog.addEventListener("keypress", ev => {
-            if (event.keyCode == 13)
+            if (event.keyCode === 13)
                 saveButton.click();
         });
     });
@@ -325,8 +326,7 @@ function setAddressName(addr, name) {
     const [addrObj, addrNode] = getAddrData(addr);
     assert(addrObj);
     addrObj.name = name;
-    const displayName = name ? name : "Unnamed address"; // TODO translate
-    addrNode.querySelector(".addrName").textContent = displayName;
+    addrNode.querySelector(".addrName").textContent = name ? name : "Unnamed address"; // TODO translate
     sortAddresses();
     scrollIntoViewIfNeeded(addrListNode, addrNode);
 }
@@ -339,7 +339,7 @@ function showNewAddrDialog() {
             dialog.close();
         });
         dialog.addEventListener("keypress", ev => {
-            if (event.keyCode == 13)
+            if (event.keyCode === 13)
                 createButton.click();
         });
     });
@@ -407,7 +407,7 @@ function showAddrSelectDialog(zeroBalanceAddrs, onSelected) {
             row.addEventListener("click", () => {
                 dialog.close();
                 onSelected(addrObj.addr);
-            })
+            });
             listNode.appendChild(row)
         }
     });

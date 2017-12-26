@@ -113,7 +113,7 @@ let langDict;
 (() => {
     const {ipcRenderer} = require("electron");
     ipcRenderer.on("settings", (sender, settingsStr) => {
-        settings = JSON.parse(settingsStr)
+        settings = JSON.parse(settingsStr);
         loadLang();
         translateCurrentPage();
     });
@@ -157,6 +157,7 @@ function loadLang() {
 function tr(key, defaultVal) {
     if (!langDict)
         return defaultVal;
+
     function iter(dict, trPath) {
         if (trPath.length)
             return iter(dict[trPath[0]], trPath.slice(1));
@@ -167,6 +168,7 @@ function tr(key, defaultVal) {
             return defaultVal;
         }
     }
+
     return iter(langDict, key.split("."));
 }
 
